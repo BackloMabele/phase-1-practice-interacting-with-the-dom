@@ -8,8 +8,8 @@ const commentInput = document.getElementById('comment-input')
 const counterValue = document.getElementById('counter')
 const commentsSubmit = document.getElementById('submit')
 let counter = 0;
-let isPaused = false
 intervalId= setInterval(updateCounter, 1000);
+let isPaused = false
 
 function timerIncrement() {
     plusButton.addEventListener('click', ()=> {
@@ -36,18 +36,18 @@ function updateCounter() {
 function togglePause() {
     isPaused = !isPaused;
 
-    const buttonsToDisable = [minusButton, plusButton, heartButton];
+  const buttonsToDisable = [minusButton, plusButton, heartButton];
   buttonsToDisable.forEach(button => {
     button.disabled = isPaused;
   });
 
-    if( isPaused) {
-        clearInterval(intervalId)
-        pauseButton.innerHTML = 'resume';
-    } else {
-        intervalId = setInterval(updateCounter, 1000);
-        pauseButton.innerHTML = 'pause'
-    }
+  if( isPaused) {
+    clearInterval(intervalId)
+    pauseButton.innerHTML = 'resume';
+} else {
+    intervalId = setInterval(updateCounter, 1000);
+    pauseButton.innerHTML = 'pause'
+}
 }
 
 commentForm.addEventListener('submit', (event)=> {
@@ -63,3 +63,18 @@ function addComment(data) {
     commentsList.appendChild(li);
 }
 
+function handleHeart() {
+    let isClicked = false;
+  
+    heartButton.addEventListener('click', () => {
+      isClicked = !isClicked; 
+  
+      if (isClicked) {
+        const likesClass = document.querySelector('.likes');
+        const li = document.createElement('li')
+        li.textContent = `You liked ${counter}`;
+        likesClass.appendChild(li);
+      }
+    });
+  }
+  handleHeart();
